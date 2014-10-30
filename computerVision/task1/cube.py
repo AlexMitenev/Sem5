@@ -12,10 +12,10 @@ def initGL(width, height):
     glViewport(0, 0, width, height)
 
     glMatrixMode(GL_PROJECTION)
-    viewAngle = 45.0
+    viewAngle = 30.0
     aspect = float(width) / float(height)
-    #gluPerspective(viewAngle, aspect, 0.1, 100.0)
-    glOrtho(-1, 1, -1, 1, -1, 1)
+    gluPerspective(viewAngle, aspect, 0.1, 10)
+    #glOrtho(-1.0, 1.0, -1.0, 1.0, -1, 10)
     glMatrixMode(GL_MODELVIEW)
 
 
@@ -24,8 +24,7 @@ def drawGLScene():
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
 
     glLoadIdentity()
-    #glTranslatef(0.0, 0.0, -3.0) # for perspective use translate
-    #glRotatef(0.0, 1.0, 1.0, 1.0)
+    glTranslatef(0.0, 0.0, -4.0)
 
     glBegin(GL_QUADS)
 
@@ -60,23 +59,22 @@ def drawGLScene():
     glVertex3f(0.5, -0.5, -0.5)
 
     glEnd()
-
-    # since this is double buffered, swap the buffers to display what just got drawn.
     glutSwapBuffers()
 
 
 def main():
     global window
     glutInit(sys.argv)
+    width = 600
+    height = 600
 
-    # get a 640 x 480 window
-    glutInitWindowSize(600, 600)
+    glutInitWindowSize(width, height)
     window = glutCreateWindow("example")
     glutIdleFunc(drawGLScene)
 
     # Initialize our window.
-    initGL(600, 600)
-
+    initGL(width, height)
+    glutMainLoop()
 
 main()
-glutMainLoop()
+
